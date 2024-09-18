@@ -1,0 +1,40 @@
+syntax = "proto3";
+package paymentService;
+
+option java_multiple_files = true;
+option java_package = "com.micro.paymentService";
+
+message PaymentInitiateRequest{
+  string sagaId = 1;
+  int32 customerId = 2;
+  double payableAmount = 3;
+}
+
+message PaymentInitiateResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+message PaymentSuccessRequest{
+  string sagaId = 1;
+}
+
+message PaymentSuccessResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+message PaymentFailRequest{
+  string sagaId = 1;
+}
+
+message PaymentFailResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+service PaymentService{
+  rpc paymentInitiate(PaymentInitiateRequest) returns(PaymentInitiateResponse);
+  rpc paymentSuccess(PaymentSuccessRequest) returns(PaymentSuccessResponse);
+  rpc paymentFail(PaymentFailRequest) returns(PaymentFailResponse);
+}

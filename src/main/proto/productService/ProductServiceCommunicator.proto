@@ -1,0 +1,66 @@
+syntax = "proto3";
+package productService;
+
+option java_multiple_files = true;
+option java_package = "com.micro.productService";
+
+message ReservedOrderItem{
+  int32 productId = 1;
+  int32 quantity = 2;
+  double amount = 3;
+}
+
+
+message ProductReservationInitRequest{
+  string sagaId = 1;
+  repeated ReservedOrderItem orderItems = 2;
+}
+
+message ProductReservationInitResponse{
+  string sagaId = 1;
+  bool status = 2;
+}
+
+message ProductReserveSuccessRequest{
+  string sagaId = 1;
+}
+
+message ProductReserveSuccessResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+message ProductReserveFailRequest{
+  string sagaId = 1;
+}
+
+message ProductReserveFailResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+message ProductReleaseInitRequest{
+  string sagaId = 1;
+}
+
+message ProductReleaseInitResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+message ProductReleaseSuccessRequest{
+  string sagaId = 1;
+}
+
+message ProductReleaseSuccessResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+service ProductService{
+  rpc initiateProductReservation(ProductReservationInitRequest) returns(ProductReservationInitResponse);
+  rpc productReserveSuccess(ProductReserveSuccessRequest) returns(ProductReserveSuccessResponse);
+  rpc productReserveFail(ProductReserveFailRequest) returns(ProductReserveFailResponse);
+  rpc releaseReservedProduct(ProductReleaseInitRequest) returns(ProductReleaseInitResponse);
+  rpc productReleaseSuccess(ProductReleaseSuccessRequest) returns(ProductReleaseSuccessResponse);
+}

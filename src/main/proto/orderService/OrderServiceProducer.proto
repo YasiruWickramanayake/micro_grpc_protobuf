@@ -1,0 +1,27 @@
+syntax = "proto3";
+package orderService;
+
+option java_multiple_files = true;
+import "google/protobuf/empty.proto";
+option java_package = "com.micro.orderService";
+
+message ReservedOrderItem{
+  int32 productId = 1;
+  int32 quantity = 2;
+  double amount = 3;
+}
+
+
+message ProductReservationInitRequest{
+  string sagaId = 1;
+  repeated ReservedOrderItem orderItems = 2;
+}
+
+message ProductReservationInitResponse{
+  string sagaId = 1;
+  bool status = 2;
+}
+
+service OrderService{
+  rpc initiateProductReservation(ProductReservationInitRequest) returns(ProductReservationInitResponse);
+}
